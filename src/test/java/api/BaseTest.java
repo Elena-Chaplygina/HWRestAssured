@@ -6,8 +6,6 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 
 public class BaseTest {
 
-    public static final String LOGIN_ENDPOINT = "/login";
-
     static {
         RestAssured.useRelaxedHTTPSValidation();
         RestAssured.filters(new RequestLoggingFilter(System.out),new ResponseLoggingFilter(System.out));

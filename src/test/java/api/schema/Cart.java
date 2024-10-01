@@ -1,5 +1,6 @@
 package api.schema;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class Cart {
 
     int id;
     String name;
+    @JsonProperty("category")
     String category;
     double price;
     double discount;

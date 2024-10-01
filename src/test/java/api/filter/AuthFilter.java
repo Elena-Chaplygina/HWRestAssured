@@ -14,9 +14,10 @@ public class AuthFilter implements Filter {
     public AuthFilter(String accessToken) {
         this.accessToken = accessToken;
     }
+
     @Override
     public Response filter(FilterableRequestSpecification filterableRequestSpecification, FilterableResponseSpecification filterableResponseSpecification, FilterContext filterContext) {
-        filterableRequestSpecification.header(new Header("Authorization","Bearer "+accessToken));
-        return filterContext.next(filterableRequestSpecification,filterableResponseSpecification);
+        filterableRequestSpecification.header(new Header("Authorization", "Bearer " + accessToken));
+        return filterContext.next(filterableRequestSpecification, filterableResponseSpecification);
     }
 }

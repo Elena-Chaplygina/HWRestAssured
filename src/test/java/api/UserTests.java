@@ -2,9 +2,7 @@ package api;
 
 import api.schema.LoginRequest;
 import api.schema.ResponseMessage;
-import api.service.Service;
-import io.restassured.RestAssured;
-import io.restassured.specification.RequestSpecification;
+import api.service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,39 +15,28 @@ public class UserTests extends BaseTest {
     @Test
     void verifyUserAuthorization() {
         LoginRequest loginBody = new LoginRequest("string", "string");
-        RequestSpecification requestSpec = Service.preparePost(loginBody);
-        Service.installSpecification(requestSpec, Service.responseOK200());
-        RestAssured.given()
-                .post(LOGIN_ENDPOINT)
-                .then()
+        new UserService().postUser(loginBody)
+                .then().statusCode(200)
                 .body("$", hasKey("access_token"));
     }
 
     @DisplayName("Проверка авторизации незарегистрированного пользователя")
     @Test
     void verifyLoginUnregisteredUser() {
-        Service.installSpecification(Service.responseUnauthorized401());
         LoginRequest loginBody = new LoginRequest("decimal", "string");
-        ResponseMessage loginError = loginAndGetResponse(loginBody);
+        ResponseMessage loginError = new UserService().postUser(loginBody)
+                .then().statusCode(401)
+                .extract().as(ResponseMessage.class);
         assertEquals("Invalid credentials", loginError.getMessage());
     }
 
     @DisplayName("Проверка авторизации зарегистрированного пользователя с неверным паролем")
     @Test
     void verifyUserLoginFailureWithWrongPassword() {
-        Service.installSpecification(Service.responseUnauthorized401());
         LoginRequest loginBody = new LoginRequest("string", "decimal");
-        ResponseMessage loginError = loginAndGetResponse(loginBody);
-        assertEquals("Invalid credentials", loginError.getMessage());
-    }
-
-    private ResponseMessage loginAndGetResponse(LoginRequest login) {
-        Service.preparePost(login);
-        RequestSpecification requestSpec = Service.preparePost(login);
-        Service.installSpecification(requestSpec);
-        return RestAssured.given()
-                .post(LOGIN_ENDPOINT)
-                .then()
+        ResponseMessage loginError = new UserService().postUser(loginBody)
+                .then().statusCode(401)
                 .extract().as(ResponseMessage.class);
+        assertEquals("Invalid credentials", loginError.getMessage());
     }
 }
