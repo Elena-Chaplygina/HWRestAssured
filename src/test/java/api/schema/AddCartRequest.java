@@ -1,16 +1,30 @@
 package api.schema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Value;
 
 
-@Value
-public class AddCartRequest implements Schema{
+public class AddCartRequest implements Schema {
 
     @JsonProperty("product_id")
-    int productId;
+    private int productId;
 
-    int quantity;
+    private int quantity;
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public AddCartRequest(int productId, int quantity) {
         this.productId = productId;

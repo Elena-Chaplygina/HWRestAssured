@@ -1,16 +1,21 @@
 package api.schema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginSuccessfulResponse {
 
     @JsonProperty("access_token")
-    double AccessToken;
+    private double AccessToken;
 
     public double getAccessToken() {
         return AccessToken;
     }
 
-    public LoginSuccessfulResponse() {
+    public void setAccessToken(double accessToken) {
+        AccessToken = accessToken;
     }
 }
