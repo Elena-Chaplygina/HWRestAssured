@@ -1,18 +1,20 @@
 package api.schema;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class Product {
 
     private String category;
     private Double discount;
     private Integer id;
     private String name;
-    private  Double price;
+    private Double price;
 
     public String getCategory() {
         return category;
@@ -53,4 +55,5 @@ public class Product {
     public void setDiscount(Double discount) {
         this.discount = discount;
     }
+
 }

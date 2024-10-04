@@ -1,10 +1,8 @@
 package api.schema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
 
 import java.util.List;
-
 
 
 public class GetCartResponse {

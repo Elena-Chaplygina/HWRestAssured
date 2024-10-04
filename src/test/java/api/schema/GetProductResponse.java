@@ -6,6 +6,8 @@ import java.util.List;
 
 
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
 public class GetProductResponse {
 
     private List<Product> products;
